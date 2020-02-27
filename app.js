@@ -1,67 +1,47 @@
-document.getElementById('button1').addEventListener('click', loadCustomer);
+const posts = [
+    { title: 'Post One', body: 'This is post one' },
+    { title: 'Post Two', body: 'This is post two' },
+];
 
-document.getElementById('button2').addEventListener('click', loadCustomers);
+// function createPost() {
+//     setTimeout(function (post) {
+//         posts.push(post);
+//     }, 2000);
 
-// Load Single Customer
-function loadCustomer(e) {
-    const xhr = new XMLHttpRequest();
+// }
 
-    xhr.open('GET', 'customer.json', true);
+// function getPosts() {
+//     setTimeout(function () {
+//         let output = '';
+//         posts.forEach(function (post) {
+//             output += `<li>${post.title}</li>`;
+//         });
+//         document.body.innerHTML = output;
 
-    xhr.onload = function () {
-        if (this.status === 200) {
-            // console.log(this.responseText);
+//     }, 1000);
+// }
 
-            const customer = JSON.parse(this.responseText);
+// createPost({ title: 'Post Three', body: 'THis is post three' });
 
-            const output = `
-                <ul>
-                    <li>ID: ${customer.id}</li>
-                    <li>Name: ${customer.name}</li>
-                    <li>Company: ${customer.company}</li>
-                    <li>Phone: ${customer.phone}</li>
-                </ul>
-            `;
+// getPosts();
 
-            document.getElementById('customer').innerHTML = output;
+function createPost() {
+    setTimeout(function (post, callback) {
+        posts.push(post);
+        callback();
+    }, 2000);
 
-        }
-    }
-
-    xhr.send();
 }
 
-// Load Customers
-function loadCustomers(e) {
-    const xhr = new XMLHttpRequest();
+function getPosts() {
+    setTimeout(function () {
+        let output = '';
+        posts.forEach(function (post) {
+            output += `<li>${post.title}</li>`;
+        });
+        document.body.innerHTML = output;
 
-    xhr.open('GET', 'customers.json', true);
-
-    xhr.onload = function () {
-        if (this.status === 200) {
-            // console.log(this.responseText);
-
-            const customers = JSON.parse(this.responseText);
-
-            let output = '';
-
-            customers.forEach(function (customer) {
-                output += `
-                <ul>
-                    <li>ID: ${customer.id}</li>
-                    <li>Name: ${customer.name}</li>
-                    <li>Company: ${customer.company}</li>
-                    <li>Phone: ${customer.phone}</li>
-                </ul>
-            `;
-            });
-
-
-
-            document.getElementById('customers').innerHTML = output;
-
-        }
-    }
-
-    xhr.send();
+    }, 1000);
 }
+
+createPost({ title: 'Post Three', body: 'This is post three' }, getPosts);
